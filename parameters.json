@@ -42,7 +42,7 @@
             "value": "adminazure"
         },
         "adminPassword": {
-            "value": null
+            "value": "P@ssw0rd"
         },
         "autoShutdownStatus": {
             "value": "Enabled"
@@ -60,7 +60,7 @@
             "value": "en"
         },
         "autoShutdownNotificationEmail": {
-            "value": "rodrigo_greff@hotmail.com"
+            "value": "empresa@empresa.com"
         }
     }
 }

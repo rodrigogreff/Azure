@@ -1,0 +1,66 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus2"
+        },
+        "networkInterfaceName": {
+            "value": "srv-01379"
+        },
+        "subnetName": {
+            "value": "SUB-01"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/d218e8fc-a6b1-4244-adfb-93afaf379f14/resourceGroups/RG-PROD/providers/Microsoft.Network/virtualNetworks/VNET-01"
+        },
+        "publicIpAddressName": {
+            "value": "SRV-01-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "publicIpAddressSku": {
+            "value": "Basic"
+        },
+        "virtualMachineName": {
+            "value": "SRV-01"
+        },
+        "virtualMachineComputerName": {
+            "value": "SRV-01"
+        },
+        "virtualMachineRG": {
+            "value": "RG-PROD"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_B2s"
+        },
+        "adminUsername": {
+            "value": "adminazure"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "autoShutdownStatus": {
+            "value": "Enabled"
+        },
+        "autoShutdownTime": {
+            "value": "23:00"
+        },
+        "autoShutdownTimeZone": {
+            "value": "E. South America Standard Time"
+        },
+        "autoShutdownNotificationStatus": {
+            "value": "Enabled"
+        },
+        "autoShutdownNotificationLocale": {
+            "value": "en"
+        },
+        "autoShutdownNotificationEmail": {
+            "value": "rodrigo_greff@hotmail.com"
+        }
+    }
+}

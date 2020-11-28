@@ -11,17 +11,17 @@ remove-item  C:\inetpub\wwwroot\iisstart.htm
 New-NetFirewallRule -DisplayName AllowICMPv4 -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
 
 #Desligar a VM 
-Stop-AzureRmVM -ResourceGroupName "RG-VALIERE" -Name "SRV-API" -Force
+Stop-AzVM -ResourceGroupName "RG-VALIERE" -Name "SRV-API" -Force
 
 #Generalizar a VM
-Set-AzureRmVM -ResourceGroupName "RG-VALIERE" -Name "SRV-API" -Generalized
+Set-AzVm -ResourceGroupName "RG-VALIERE" -Name "SRV-API" -Generalized
 
 # Get na VM 
-$vm = Get-AzureRmVM -Name "SRV-API" -ResourceGroupName "RG-VALIERE"
+$vm = Get-AzVM -Name "SRV-API" -ResourceGroupName "RG-VALIERE"
 
 # Criação da "Image Custom" baseada na configuração da VM
-$image = New-AzureRmImageConfig -Location "eastus2" -SourceVirtualMachineId $vm.ID 
+$image = New-AzImageConfig -Location "eastus2" -SourceVirtualMachineId $vm.ID 
 
 # Criar "Image Custom"
-New-AzureRmImage -Image $image -ImageName "SRV-API-IMAGE-V1" -ResourceGroupName "RG-VALIERE"
+New-AzImage -Image $image -ImageName "SRV-API-IMAGE-V1" -ResourceGroupName "RG-VALIERE"
 

@@ -23,5 +23,5 @@ $vm = Get-AzVM -Name "SRV-API" -ResourceGroupName "RG-VALIERE"
 $image = New-AzImageConfig -Location "eastus2" -SourceVirtualMachineId $vm.ID 
 
 # Criar "Image Custom"
-New-AzImage -Image $image -ImageName "SRV-API-IMAGE-V1" -ResourceGroupName "RG-VALIERE"
+New-AzImage -Image $image -ImageName "SRV-API-IMAGEM-V1" -ResourceGroupName "RG-VALIERE"
 

@@ -5,8 +5,8 @@
 #Declare variables
 $DatabasePath = "c:\windows\NTDS"
 $DomainMode = "WinThreshold"
-$DomainName = "rodrigogreff.local"
-$DomaninNetBIOSName = "RODRIGOGREFF"
+$DomainName = "greffcode.local"
+$DomaninNetBIOSName = "GREFFCODE"
 $ForestMode = "WinThreshold"
 $LogPath = "c:\windows\NTDS"
 $SysVolPath = "c:\windows\SYSVOL"

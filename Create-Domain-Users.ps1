@@ -1,62 +1,27 @@
-param (
-    [string]$OUPath,
-    [string]$UsersData
-)
+# URL do arquivo CSV no GitHub
+$csvUrl = "https://raw.githubusercontent.com/rodrigogreff/Azure/master/Users.csv"
+# Caminho temporário para salvar o CSV
+$csvPath = "C:\Temp\Users.csv"
 
-# Função para criar usuários no Active Directory
-function Create-ADUser {
-    param (
-        [string]$SamAccountName,
-        [string]$DisplayName,
-        [string]$Password,
-        [string]$OUPath
-    )
-    try {
-        # Verifica se o usuário já existe
-        if (-not (Get-ADUser -Filter {SamAccountName -eq $SamAccountName} -ErrorAction SilentlyContinue)) {
-            Write-Host "Criando usuário: $SamAccountName"
-            New-ADUser -SamAccountName $SamAccountName `
-                       -DisplayName $DisplayName `
-                       -AccountPassword (ConvertTo-SecureString $Password -AsPlainText -Force) `
-                       -PasswordNeverExpires $true `
-                       -Enabled $true `
-                       -Path $OUPath `
-                       -PassThru | Out-Null
-            Write-Host "Usuário $SamAccountName criado com sucesso."
-        } else {
-            Write-Host "Usuário $SamAccountName já existe, ignorando."
-        }
-    } catch {
-        Write-Error "Erro ao criar o usuário $SamAccountName: $_"
-    }
-}
+# Baixar o arquivo CSV do GitHub
+Invoke-WebRequest -Uri $csvUrl -OutFile $csvPath
 
-# Valida se o módulo Active Directory está disponível
-if (-not (Get-Module -ListAvailable -Name ActiveDirectory)) {
-    Write-Error "O módulo Active Directory não está instalado. Certifique-se de que o AD PowerShell está configurado."
+# Verificar se o arquivo foi baixado com sucesso
+if (Test-Path $csvPath) {
+    Write-Host "Arquivo CSV baixado com sucesso."
+} else {
+    Write-Host "Falha ao baixar o arquivo CSV."
     exit 1
 }
 
-# Importa o módulo Active Directory
-Import-Module ActiveDirectory
+# Criar OU
+New-ADOrganizationalUnit -Name "GREFFCode" -Path "DC=greffcode,DC=local"
+New-ADOrganizationalUnit -Name "Users" -Path "OU=GREFFCode,DC=greffcode,DC=local"
 
-# Verifica se o arquivo de dados dos usuários existe
-if (-not (Test-Path -Path $UsersData)) {
-    Write-Error "O arquivo de dados $UsersData não foi encontrado."
-    exit 1
-}
 
-# Lê os dados dos usuários do arquivo CSV
-try {
-    $users = Import-Csv -Path $UsersData
-    foreach ($user in $users) {
-        Create-ADUser -SamAccountName $user.SamAccountName `
-                      -DisplayName $user.DisplayName `
-                      -Password $user.Password `
-                      -OUPath $OUPath
-    }
-    Write-Host "Processo de criação de usuários concluído."
-} catch {
-    Write-Error "Erro ao ler o arquivo CSV ou criar usuários: $_"
-    exit 1
-}
+# Importar lista de usuários a partir do arquivo CSV
+csvde -i -f $csvPath -k
+
+# Alterar senha e habilitar a conta
+dsquery user "ou=Users,ou=GREFFCode,dc=greffcode,dc=local" | dsmod user -pwd "P@ssw0rd" -disabled no
+

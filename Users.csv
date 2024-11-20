@@ -1,0 +1,7 @@
+DN,objectClass,userPrincipalName,samAccountName,displayName,givenName,sn,description
+"CN=Rodrigo Greff,OU=Users,OU=GREFFCode,DC=greffcode,DC=local",user,rodrigo.greff@greffcode.local,rodrigo.greff,Rodrigo Greff,Rodrigo,Greff,Diretor de TI
+"CN=Fabricio Lopes,OU=Users,OU=GREFFCode,DC=greffcode,DC=local",user,fabricio.lopes@greffcode.local,fabricio.lopes,Fabricio Lopes,Fabricio,Lopes,Diretor Executivo
+"CN=Saymon Santos,OU=Users,OU=GREFFCode,DC=greffcode,DC=local",user,saymon.santos@greffcode.local,saymon.santos,Saymon Santos,Saymon,Santos,Analista de Suporte
+"CN=Ederson Lauermann,OU=Users,OU=GREFFCode,DC=greffcode,DC=local",user,ederson.lauermann@greffcode.local,ederson.lauermann,Ederson Lauermann,Ederson,Lauermann,Analista de Suporte
+
+

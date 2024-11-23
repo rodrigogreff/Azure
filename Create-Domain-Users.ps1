@@ -1,3 +1,23 @@
+Start-Transcript -Path "C:\Logs\Create-Domain-Users.log" -Append
+
+if (-Not (Test-Connection -ComputerName "adds01" -Count 1 -Quiet)) {
+    Write-Host "Domain Controller not reachable."
+    exit 1
+}
+
+try {
+    Import-Csv -Path './Users.csv' | ForEach-Object {
+        Write-Host "Creating user: $($_.Name)"
+        New-ADUser -Name $_.Name -GivenName $_.GivenName -Surname $_.Surname -UserPrincipalName $_.UserPrincipalName -AccountPassword (ConvertTo-SecureString $_.Password -AsPlainText -Force) -Enabled $true -PassThru
+    }
+    Write-Host "Users created successfully."
+} catch {
+    Write-Host "Error creating users: $_"
+    exit 1
+}
+
+Stop-Transcript
+
 # URL do arquivo CSV no GitHub
 $csvUrl = "https://raw.githubusercontent.com/rodrigogreff/Azure/master/Users.csv"
 # Caminho temporário para salvar o CSV
